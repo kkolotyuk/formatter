@@ -17,7 +17,7 @@ class Formatter
   #   The reader must implements read and look_next methods. For more information look {Reader}
   # @param writer [Writer] the formatter use writer.write method to save reformatted code
   #   The writer must implements write method. For more information look {Writer}
-  # @param conf [Hash] configuration for the formatter. You can customize the tab size sending :step => 5 in conf.
+  # @param conf [Hash] configuration for the formatter. You can customize the tab size sending !{step: 5} in conf.
   def self.format(reader, writer, conf)
     validate_reader reader
     validate_writer writer
