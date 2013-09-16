@@ -2,11 +2,13 @@ require './writer'
 require './reader'
 
 # Reformats code of an abstract language.
-# The language can contain special characters: ';', '{' and '}'. All other characters are taken by the formatter as simple characters.
+# The language can contain special characters: semicolon and braces. All other characters are taken by the formatter as simple characters.
 # The formatter works with syntactically valid code only (for instance if code contains unpaired '{' work of the formatter is unpredictable).
 class Formatter
 
+  # Array contains characters which will be skip
   SKIP_CHARS = [" ", "\t", "\n"]
+  # Default configuration for the formatter
   DEFAULT_CONF = {step: 4}
 
   # Reformats code according to conf parameter.
