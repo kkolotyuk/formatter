@@ -16,8 +16,4 @@ class IOReader < Reader
   def read
     @io.getc
   end
-
-  def end?
-    @io.eof?
-  end
 end

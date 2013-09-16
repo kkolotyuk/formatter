@@ -32,15 +32,19 @@ class Formatter
 
   private
 
+  def validate_reader(reader)
+    reader.respond_to?(:read) && reader.respond_to?(:look_next)
+  end
+
   def self.skip(reader)
-    while @@skip_chars.include?(reader.look_next) && !reader.end?
+    while !reader.look_next.nil? && @@skip_chars.include?(reader.look_next)
       reader.read
     end
   end
 
   def self.next_lexem(reader)
     skip(reader)
-    reader.end? ? nil : reader.read
+    reader.read
   end
 
   def self.look_lexem(reader)
