@@ -1,50 +1,5 @@
-class Writer
-  # Write string
-  def write(str)
-  end
-end
-
-class StdWriter < Writer
-  def write(str)
-    STDOUT.print(str)
-  end
-end
-
-class Reader
-  # Look at next character
-  def look_next
-  end
-
-  # Read next character
-  def read
-  end
-
-  # I have next character, don't I?
-  def end?
-  end
-end
-
-class IOReader < Reader
-  
-  def initialize(io)
-    @io = io
-  end
-
-  def look_next
-    pos = @io.pos
-    char = @io.getc
-    @io.pos=pos
-    char
-  end
-
-  def read
-    @io.getc
-  end
-
-  def end?
-    @io.eof?
-  end
-end
+require './writer'
+require './reader'
 
 class Formatter
 
@@ -103,15 +58,3 @@ class Formatter
   end
 
 end
-
-
-if !File.exists?(ARGV[0])
-  puts "File doesn't exist"
-end
-if !File.readable?(ARGV[0])
-  puts "File is unreadable"
-end
-
-reader = IOReader.new(File.open(ARGV[0], 'r'))
-writer = StdWriter.new
-Formatter.format(reader, writer, {})
