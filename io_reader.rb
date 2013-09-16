@@ -1,5 +1,6 @@
 require './reader'
 
+# Implementation of {Reader} for work with IO objects.
 class IOReader < Reader
   
   def initialize(io)

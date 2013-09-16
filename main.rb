@@ -4,10 +4,10 @@ require './formatter'
 
 
 if !File.exists?(ARGV[0])
-  rescue "File doesn't exist"
+  raise "File doesn't exist"
 end
 if !File.readable?(ARGV[0])
-  rescue "File is unreadable"
+  raise "File is unreadable"
 end
 
 reader = IOReader.new(File.open(ARGV[0], 'r'))
