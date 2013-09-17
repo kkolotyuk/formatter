@@ -47,11 +47,13 @@ class Formatter
   private
 
   def self.validate_reader(reader)
+    raise "Your reader is nil" if reader.nil?
     raise "Your reader can't read" unless reader.respond_to?(:read)
     raise "Your reader can't look next character" unless reader.respond_to?(:look_next)
   end
 
   def self.validate_writer(writer)
+    raise "Your writer is nil" if writer.nil?
     raise "Your writer can't write" unless writer.respond_to?(:write)
   end
 
