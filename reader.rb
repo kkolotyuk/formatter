@@ -7,7 +7,7 @@ class Reader
   def look_next
   end
 
-  # Reads next character. Before call of this method you can see what it returns using {reader#look_next} call.
+  # Reads next character. If the end is reached, return nil. Before call of this method you can see what it returns using {reader#look_next} call.
   # @return [String]
   def read
   end
