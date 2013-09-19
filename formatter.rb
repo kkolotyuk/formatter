@@ -9,7 +9,7 @@ class Formatter
   # Array contains characters which will be skip
   SKIP_CHARS = [" ", "\t", "\n"]
   # Default configuration for the formatter
-  DEFAULT_CONF = {step: 4}
+  DEFAULT_CONF = { step: 4, space: " " }
 
   # Reformats code according to conf parameter.
   #
@@ -17,30 +17,34 @@ class Formatter
   #   The reader must implements read and look_next methods. For more information look {Reader}
   # @param writer [Writer] the formatter use writer.write method to save reformatted code
   #   The writer must implements write method. For more information look {Writer}
-  # @param conf [Hash] configuration for the formatter. You can customize the tab size sending !{step: 5} in conf.
+  # @param conf [Hash] configuration for the formatter. You can customize step and/or space string the tab size sending !{step: 5, space: "any_string"} in conf.
   def self.format(reader, writer, conf)
     validate_reader reader
     validate_writer writer
     conf = DEFAULT_CONF.merge(conf)
     step = conf[:step]
-    current_space = 0
+    space_str = conf[:space]
+    last_space = 0
+    last_lexem = ""
     while (char = next_lexem(reader))
-      # think about symbols
       if char == "{"
+        last_space += step if last_lexem == "{"
+        writer.write(space_string(space_str, last_space))
         writer.write(char + "\n")
-        current_space += step if look_lexem(reader) != "}"
-        writer.write(space_string current_space)
       elsif char == "}"
+        last_space -= step if last_lexem != "{"
+        writer.write(space_string(space_str, last_space))
         writer.write(char + "\n")
-        current_space -= step if look_lexem(reader) == "}"
-        writer.write(space_string current_space)
       elsif char == ";"
+        last_space += step if last_lexem == "{"
+        writer.write(space_string(space_str, last_space)) if (last_lexem == "{" or last_lexem == ";")
         writer.write(char + "\n")
-        current_space -= step if look_lexem(reader) == "}"
-        writer.write(space_string current_space)
       else
+        last_space += step if last_lexem == "{"
+        writer.write(space_string(space_str, last_space)) if (last_lexem == "{" or last_lexem == ";")
         writer.write(char)
       end
+      last_lexem = char
     end
   end
 
@@ -57,29 +61,16 @@ class Formatter
     raise "Your writer can't write" unless writer.respond_to?(:write)
   end
 
-  def self.skip(reader)
-    while !reader.look_next.nil? && SKIP_CHARS.include?(reader.look_next)
-      reader.read
-    end
-  end
-
   def self.next_lexem(reader)
-    skip(reader)
-    reader.read
+    char = SKIP_CHARS[0]
+    while !char.nil? && SKIP_CHARS.include?(char)
+      char= reader.read
+    end
+    char
   end
 
-  def self.look_lexem(reader)
-    skip(reader)
-    reader.look_next
-  end
-
-  def self.look_lexem(reader)
-    skip(reader)
-    reader.look_next
-  end
-
-  def self.space_string(count)
-    " " * count
+  def self.space_string(space, count)
+    space * count
   end
 
 end

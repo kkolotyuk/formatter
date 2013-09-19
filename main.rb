@@ -12,4 +12,4 @@ end
 
 reader = IOReader.new(File.open(ARGV[0], 'r'))
 writer = StdWriter.new
-Formatter.format(reader, writer, {})
+Formatter.format(reader, writer, {space: "\t", step: 1})
