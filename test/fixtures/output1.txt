@@ -1,0 +1,7 @@
+{
+    first_str;
+    {
+        str2;
+        str3;
+    }
+}

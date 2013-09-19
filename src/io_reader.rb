@@ -1,4 +1,4 @@
-require './reader'
+require_relative './reader'
 
 # Implementation of {Reader} for work with IO objects.
 class IOReader < Reader

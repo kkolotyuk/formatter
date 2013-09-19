@@ -1,5 +1,5 @@
-require './writer'
-require './reader'
+require_relative './writer'
+require_relative './reader'
 
 # Reformats code of an abstract language.
 # The language can contain special characters: semicolon and braces. All other characters are taken by the formatter as simple characters.
@@ -18,7 +18,7 @@ class Formatter
   # @param writer [Writer] the formatter use writer.write method to save reformatted code
   #   The writer must implements write method. For more information look {Writer}
   # @param conf [Hash] configuration for the formatter. You can customize step and/or space string the tab size sending !{step: 5, space: "any_string"} in conf.
-  def self.format(reader, writer, conf)
+  def self.format(reader, writer, conf = {})
     validate_reader reader
     validate_writer writer
     conf = DEFAULT_CONF.merge(conf)

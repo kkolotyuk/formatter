@@ -1,6 +1,6 @@
-require './io_reader'
-require './std_writer'
-require './formatter'
+require_relative './io_reader'
+require_relative './std_writer'
+require_relative './formatter'
 
 
 if !File.exists?(ARGV[0])

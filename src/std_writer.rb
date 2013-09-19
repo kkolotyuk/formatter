@@ -1,4 +1,4 @@
-require './writer'
+require_relative './writer'
 
 # Implementation of {Writer} for STDOUT
 class StdWriter < Writer
